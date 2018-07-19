@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pythe.mapper.TblCompositionMatchMapper" >
+  <resultMap id="BaseResultMap" type="com.pythe.pojo.TblCompositionMatch" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="student_id" property="studentId" jdbcType="BIGINT" />
+    <result column="article" property="article" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="stop_time" property="stopTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="task_id" property="taskId" jdbcType="BIGINT" />
+    <result column="mark" property="mark" jdbcType="DOUBLE" />
+    <result column="word_num" property="wordNum" jdbcType="INTEGER" />
+    <result column="composition_id" property="compositionId" jdbcType="BIGINT" />
+    <result column="material_id" property="materialId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="like_num" property="likeNum" jdbcType="BIGINT" />
+    <result column="match_name" property="matchName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.pythe.pojo.TblCompositionMatch" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, student_id, article, start_time, stop_time, update_time, status, task_id, mark, 
+    word_num, composition_id, material_id, type, comment, like_num, match_name
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.pythe.pojo.TblCompositionMatchExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_composition_match
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pythe.pojo.TblCompositionMatchExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_composition_match
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_composition_match
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_composition_match
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pythe.pojo.TblCompositionMatchExample" >
+    delete from tbl_composition_match
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pythe.pojo.TblCompositionMatch" >
+    insert into tbl_composition_match (id, student_id, article, 
+      start_time, stop_time, update_time, 
+      status, task_id, mark, 
+      word_num, composition_id, material_id, 
+      type, comment, like_num, 
+      match_name, content)
+    values (#{id,jdbcType=BIGINT}, #{studentId,jdbcType=BIGINT}, #{article,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{stopTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{taskId,jdbcType=BIGINT}, #{mark,jdbcType=DOUBLE}, 
+      #{wordNum,jdbcType=INTEGER}, #{compositionId,jdbcType=BIGINT}, #{materialId,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, #{likeNum,jdbcType=BIGINT}, 
+      #{matchName,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pythe.pojo.TblCompositionMatch" >
+    insert into tbl_composition_match
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="article != null" >
+        article,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="stopTime != null" >
+        stop_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="mark != null" >
+        mark,
+      </if>
+      <if test="wordNum != null" >
+        word_num,
+      </if>
+      <if test="compositionId != null" >
+        composition_id,
+      </if>
+      <if test="materialId != null" >
+        material_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="likeNum != null" >
+        like_num,
+      </if>
+      <if test="matchName != null" >
+        match_name,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="studentId != null" >
+        #{studentId,jdbcType=BIGINT},
+      </if>
+      <if test="article != null" >
+        #{article,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stopTime != null" >
+        #{stopTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null" >
+        #{taskId,jdbcType=BIGINT},
+      </if>
+      <if test="mark != null" >
+        #{mark,jdbcType=DOUBLE},
+      </if>
+      <if test="wordNum != null" >
+        #{wordNum,jdbcType=INTEGER},
+      </if>
+      <if test="compositionId != null" >
+        #{compositionId,jdbcType=BIGINT},
+      </if>
+      <if test="materialId != null" >
+        #{materialId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="likeNum != null" >
+        #{likeNum,jdbcType=BIGINT},
+      </if>
+      <if test="matchName != null" >
+        #{matchName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pythe.pojo.TblCompositionMatchExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_composition_match
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_composition_match
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.studentId != null" >
+        student_id = #{record.studentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.article != null" >
+        article = #{record.article,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null" >
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.stopTime != null" >
+        stop_time = #{record.stopTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskId != null" >
+        task_id = #{record.taskId,jdbcType=BIGINT},
+      </if>
+      <if test="record.mark != null" >
+        mark = #{record.mark,jdbcType=DOUBLE},
+      </if>
+      <if test="record.wordNum != null" >
+        word_num = #{record.wordNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.compositionId != null" >
+        composition_id = #{record.compositionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.materialId != null" >
+        material_id = #{record.materialId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.comment != null" >
+        comment = #{record.comment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likeNum != null" >
+        like_num = #{record.likeNum,jdbcType=BIGINT},
+      </if>
+      <if test="record.matchName != null" >
+        match_name = #{record.matchName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tbl_composition_match
+    set id = #{record.id,jdbcType=BIGINT},
+      student_id = #{record.studentId,jdbcType=BIGINT},
+      article = #{record.article,jdbcType=VARCHAR},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      stop_time = #{record.stopTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      task_id = #{record.taskId,jdbcType=BIGINT},
+      mark = #{record.mark,jdbcType=DOUBLE},
+      word_num = #{record.wordNum,jdbcType=INTEGER},
+      composition_id = #{record.compositionId,jdbcType=BIGINT},
+      material_id = #{record.materialId,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      comment = #{record.comment,jdbcType=VARCHAR},
+      like_num = #{record.likeNum,jdbcType=BIGINT},
+      match_name = #{record.matchName,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_composition_match
+    set id = #{record.id,jdbcType=BIGINT},
+      student_id = #{record.studentId,jdbcType=BIGINT},
+      article = #{record.article,jdbcType=VARCHAR},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      stop_time = #{record.stopTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      task_id = #{record.taskId,jdbcType=BIGINT},
+      mark = #{record.mark,jdbcType=DOUBLE},
+      word_num = #{record.wordNum,jdbcType=INTEGER},
+      composition_id = #{record.compositionId,jdbcType=BIGINT},
+      material_id = #{record.materialId,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      comment = #{record.comment,jdbcType=VARCHAR},
+      like_num = #{record.likeNum,jdbcType=BIGINT},
+      match_name = #{record.matchName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pythe.pojo.TblCompositionMatch" >
+    update tbl_composition_match
+    <set >
+      <if test="studentId != null" >
+        student_id = #{studentId,jdbcType=BIGINT},
+      </if>
+      <if test="article != null" >
+        article = #{article,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stopTime != null" >
+        stop_time = #{stopTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null" >
+        task_id = #{taskId,jdbcType=BIGINT},
+      </if>
+      <if test="mark != null" >
+        mark = #{mark,jdbcType=DOUBLE},
+      </if>
+      <if test="wordNum != null" >
+        word_num = #{wordNum,jdbcType=INTEGER},
+      </if>
+      <if test="compositionId != null" >
+        composition_id = #{compositionId,jdbcType=BIGINT},
+      </if>
+      <if test="materialId != null" >
+        material_id = #{materialId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="likeNum != null" >
+        like_num = #{likeNum,jdbcType=BIGINT},
+      </if>
+      <if test="matchName != null" >
+        match_name = #{matchName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pythe.pojo.TblCompositionMatch" >
+    update tbl_composition_match
+    set student_id = #{studentId,jdbcType=BIGINT},
+      article = #{article,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      stop_time = #{stopTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      task_id = #{taskId,jdbcType=BIGINT},
+      mark = #{mark,jdbcType=DOUBLE},
+      word_num = #{wordNum,jdbcType=INTEGER},
+      composition_id = #{compositionId,jdbcType=BIGINT},
+      material_id = #{materialId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
+      like_num = #{likeNum,jdbcType=BIGINT},
+      match_name = #{matchName,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pythe.pojo.TblCompositionMatch" >
+    update tbl_composition_match
+    set student_id = #{studentId,jdbcType=BIGINT},
+      article = #{article,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      stop_time = #{stopTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      task_id = #{taskId,jdbcType=BIGINT},
+      mark = #{mark,jdbcType=DOUBLE},
+      word_num = #{wordNum,jdbcType=INTEGER},
+      composition_id = #{compositionId,jdbcType=BIGINT},
+      material_id = #{materialId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
+      like_num = #{likeNum,jdbcType=BIGINT},
+      match_name = #{matchName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
