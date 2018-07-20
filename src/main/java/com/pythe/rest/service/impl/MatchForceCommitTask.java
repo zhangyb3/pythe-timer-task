@@ -27,9 +27,10 @@ public class MatchForceCommitTask {
 		TblCompositionMatchExample compositionMatchExample = new TblCompositionMatchExample();
 		compositionMatchExample.createCriteria().andStopTimeGreaterThan(new DateTime().plusMinutes(1).toDate());
 
-		int resultNum = compositionMatchMapper.countByExample(compositionMatchExample);
+		// int resultNum =
+		// compositionMatchMapper.countByExample(compositionMatchExample);
 
-		logger.info("即将提交的作文数量：" + resultNum);
+		// logger.info("即将提交的作文数量：" + resultNum);
 	}
 
 	public static void main(String[] args) {
